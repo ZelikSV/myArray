@@ -14,7 +14,7 @@ describe('tests for method pop', () => {
   });
 
   test('instance has not Own Property pop', () => {
-    expect(arr.Object.prototype.hasOwnProperty.call('pop')).toBeFalsy();
+    expect(Object.prototype(arr, hasOwnProperty.call('pop'))).toBeFalsy();
   });
 
   test('method must return deleted element', () => {

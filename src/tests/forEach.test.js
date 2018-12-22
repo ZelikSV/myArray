@@ -14,7 +14,7 @@ describe('tests for method forEach', () => {
   });
 
   test('instance has not Own Property forEach ', () => {
-    expect(arr.Object.prototype.hasOwnProperty.call('forEach')).toBeFalsy();
+    expect(Object.prototype(arr, hasOwnProperty.call('forEach'))).toBeFalsy();
   });
 
   test('does not mutate initial arr if we do nothing inside the cb ', () => {

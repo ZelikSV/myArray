@@ -11,7 +11,7 @@ describe('tests for method reduce', () => {
   test('instance has not own property reduce', () => {
     const arr = new MyArray(1, 4, 0);
 
-    expect(arr.Object.prototype.hasOwnProperty.call('reduce')).toBeFalsy();
+    expect(Object.prototype(arr, hasOwnProperty.call('reduce'))).toBeFalsy();
   });
 
   test('Method shouldnot mutate initial array', () => {

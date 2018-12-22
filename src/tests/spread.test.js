@@ -11,7 +11,7 @@ describe('tests for spread', () => {
   test('instance has not own property [Symbol.iterator]', () => {
     const arr = new MyArray(1, 2, 3);
 
-    expect(arr.Object.prototype.hasOwnProperty.call('Symbol.iterator')).toBeFalsy();
+    expect(Object.prototype(arr, hasOwnProperty.call('Symbol.iterator'))).toBeFalsy();
   });
 
   test('array must work with operator spread', () => {

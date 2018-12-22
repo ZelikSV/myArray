@@ -44,7 +44,7 @@ describe('tests for method find', () => {
   test('instance has not Own Property map', () => {
     const arr = new MyArray(1, 4, 0);
 
-    expect(arr.Object.prototype.hasOwnProperty.call('find')).toBeFalsy();
+    expect(Object.prototype(arr, hasOwnProperty.call('find'))).toBeFalsy();
   });
 
   test('instance has method find', () => {
