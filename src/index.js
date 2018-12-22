@@ -78,10 +78,15 @@ class MyArray {
     let str = '';
 
     for (let i = 0; i < this.length; i++) {
-      str = `${str} + ${this[i]} + ', '`;
+      if (i === (this.length - 1)) {
+        str += `${this[i]}`;
+      } else {
+        str += `${this[i]},`;
+      }
     }
     return str;
   }
+
   sort(callback) {
     const mas = this;
     let max = null;
