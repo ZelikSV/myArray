@@ -12,7 +12,8 @@ class MyArray {
   }
   push(...a) {
     for (let i = 0; i < a.length; i++) {
-      this[(this.length) + 1] = a[i];
+      this[this.length] = a[i];
+      this.length += 1;
     }
     return this.length;
   }
