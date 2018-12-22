@@ -22,9 +22,12 @@ class MyArray {
     if (this.length === 0) {
       return undefined;
     }
-    delete this[this.length - 1];
 
-    this.length -= this.length;
+    const a = this[this.length - 1];
+    delete this[this.length - 1];
+    this.length -= 1;
+
+    return a;
   }
 
   forEach(callback, thisArg) {
