@@ -1,9 +1,14 @@
 class MyArray {
-  constructor(...a) {
-    for (let i = 0; i < a.length; i++) {
-      this[i] = a[i];
+  constructor(...args) {
+    if (args.length === 1 && typeof args[0] === 'number') {
+      this.length = args[0];
+    } else {
+      this.length = args.length;
+
+      for (let i = 0; i < args.length; i++) {
+        this[i] = args[i];
+      }
     }
-    this.length = a.length;
   }
   push(...a) {
     for (let i = 0; i < a.length; i++) {
