@@ -27,11 +27,11 @@ class MyArray {
     this.length -= this.length;
   }
 
-  forEach(callback) {
+  forEach(callback, thisArg) {
     const mas = this;
 
     for (let i = 0; i < mas.length; i++) {
-      callback(null, mas[i], i, mas);
+      callback.call(thisArg, mas[i], i, mas);
     }
   }
 
