@@ -8,8 +8,8 @@ describe('tests for method FROM', () => {
   test('Instance has not Own Property FROM', () => {
     const arr = new MyArray(1, 4, 0);
 
-    expect(Object.prototype(MyArray, hasOwnProperty.call('from'))).toBeTruthy();
-    expect(Object.prototype(arr, hasOwnProperty.call('from'))).toBeFalsy();
+    expect(Object.prototype.hasOwnProperty.call(MyArray, 'from')).toBeTruthy();
+    expect(Object.prototype.hasOwnProperty.call(arr, 'from')).toBeFalsy();
   });
 
   test('If custom context is provided, use provided context', () => {
