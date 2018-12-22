@@ -35,12 +35,12 @@ class MyArray {
     }
   }
 
-  map(callback) {
+  map(callback, thisArg) {
     const mas = this;
     const result = new MyArray();
 
     for (let i = 0; i < mas.length; i++) {
-      result.push(callback(null, mas[i], i, mas));
+      result.push(callback.call(thisArg, mas[i], i, mas));
     }
     return result;
   }
