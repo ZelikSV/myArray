@@ -90,6 +90,21 @@ class MyArray {
     return str;
   }
 
+  slice(begin, end) {
+    const instanceMasive = this;
+    const newMasive = new MyArray();
+    let startValueIndex = begin ? begin : 0;
+    let endValueIndex = end ? end : instanceMasive.length;
+
+    startValueIndex = begin < 0 ? instanceMasive.length + begin : startValueIndex;
+    endValueIndex = end < 0 ? instanceMasive.length + end : endValueIndex;
+
+    for (let i = startValueIndex; i < endValueIndex; i++) {
+      newMasive.push(instanceMasive[i]);
+    }
+    return newMasive;
+  }
+
   sort(callback) {
     const mas = this;
     let max = null;
