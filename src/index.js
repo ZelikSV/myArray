@@ -100,11 +100,21 @@ class MyArray {
     }
   }
 
-  static from(arg) {
+  static from(arg, callback, thisArg = this) {
     const resultMassive = new MyArray();
 
-    for (let i = 0; i < arg.length; i++) {
-      resultMassive.push(arg[i]);
+    if (callback && thisArg) {
+      for (let i = 0; i < arg.length; i++) {
+        resultMassive.push(callback.call(thisArg, arg[i], i, arg));
+      }
+    } else if (callback) {
+      for (let i = 0; i < arg.length; i++) {
+        resultMassive.push(callback(arg[i], i, arg));
+      }
+    } else {
+      for (let i = 0; i < arg.length; i++) {
+        resultMassive.push(arg[i]);
+      }
     }
     return resultMassive;
   }
