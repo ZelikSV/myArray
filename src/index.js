@@ -61,12 +61,31 @@ class MyArray {
   }
   reduce(callback, startValue) {
     const mas = this;
-    let result = startValue;
+    let result = null;
 
-    for (let i = 0; i < mas.length; i++) {
-      result = callback(null, result, mas[i], i, mas);
+    if (callback && startValue !== undefined) {
+      result = startValue;
+
+      for (let i = 0; i < mas.length; i++) {
+        result = callback(result, mas[i], i, mas);
+      }
     }
-    return result;
+
+    if (callback && startValue === undefined) {
+      result = mas[0];
+
+      for (let i = 1; i < mas.length; i++) {
+        result = callback(result, mas[i], i, mas);
+      }
+    }
+
+    if (mas.length === 0 && startValue === undefined) {
+      throw new TypeError('Array is empty, InitialValue is specified, callback shouldnot  be called');
+    }
+
+    if (mas.length === 1 && startValue === undefined || mas.length === 0 && startValue) {
+      return startValue ? startValue : mas[0];
+    }
   }
 
   static from(arg) {
