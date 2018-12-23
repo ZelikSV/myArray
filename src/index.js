@@ -48,7 +48,7 @@ class MyArray {
     return result;
   }
 
-  filter(callback, thisArg = this) {
+  filter(callback, thisArg) {
     const mas = this;
     const result = new MyArray();
 
@@ -60,7 +60,7 @@ class MyArray {
     return result;
   }
 
-  find(callback, thisArg = this) {
+  find(callback, thisArg) {
     const mas = this;
 
     for (let i = 0; i < mas.length; i++) {
