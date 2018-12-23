@@ -94,22 +94,20 @@ class MyArray {
     const mas = this;
     let max = null;
 
-    if (arguments.length === 1 && typeof callback === 'function') {
+    if (callback) {
       for (let i = 0; i < mas.length - 1; i++) {
         for (let j = 0; j < mas.length - 1; j++) {
-          if (!(callback(mas[j], mas[j + 1]) <= 0)) {
+          if (callback(mas[j], mas[j + 1]) > 0) {
             max = mas[j];
             mas[j] = mas[j + 1];
             mas[j + 1] = max;
           }
         }
       }
-    } else if (arguments.length === 0) {
+    } else {
       for (let i = 0; i < mas.length - 1; i++) {
         for (let j = 0; j < mas.length - i; j++) {
-          if (
-            !(String(mas[j]) > String(mas[j + 1]) &&
-            callback(mas[j], mas[j + 1]) <= 0)) {
+          if (String(mas[j]) > String(mas[j + 1])) {
             max = mas[j];
             mas[j] = mas[j + 1];
             mas[j + 1] = max;
