@@ -59,6 +59,18 @@ class MyArray {
     }
     return result;
   }
+
+  find(callback, thisArg = this) {
+    const mas = this;
+
+    for (let i = 0; i < mas.length; i++) {
+      if (callback.call(thisArg, mas[i], i, mas)) {
+        return mas[i];
+      }
+    }
+    return undefined;
+  }
+
   reduce(callback, startValue) {
     const mas = this;
     let result = startValue;
