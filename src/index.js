@@ -10,9 +10,9 @@ class MyArray {
       }
     }
   }
-  push(...a) {
-    for (let i = 0; i < a.length; i++) {
-      this[this.length] = a[i];
+  push(...arg) {
+    for (let i = 0; i < arg.length; i++) {
+      this[this.length] = arg[i];
       this.length += 1;
     }
     return this.length;
@@ -23,84 +23,84 @@ class MyArray {
       return undefined;
     }
 
-    const a = this[this.length - 1];
+    const lastElement = this[this.length - 1];
     delete this[this.length - 1];
     this.length -= 1;
 
-    return a;
+    return lastElement;
   }
 
   forEach(callback, thisArg) {
-    const mas = this;
+    const massif = this;
 
-    for (let i = 0; i < mas.length; i++) {
-      callback.call(thisArg, mas[i], i, mas);
+    for (let i = 0; i < massif.length; i++) {
+      callback.call(thisArg, massif[i], i, massif);
     }
   }
 
   map(callback, thisArg) {
-    const mas = this;
-    const result = new MyArray();
+    const massif = this;
+    const resultMassif = new MyArray();
 
-    for (let i = 0; i < mas.length; i++) {
-      result.push(callback.call(thisArg, mas[i], i, mas));
+    for (let i = 0; i < massif.length; i++) {
+      resultMassif.push(callback.call(thisArg, massif[i], i, massif));
     }
-    return result;
+    return resultMassif;
   }
 
   filter(callback, thisArg) {
-    const mas = this;
-    const result = new MyArray();
+    const massif = this;
+    const resultMassif = new MyArray();
 
-    for (let i = 0; i < mas.length; i++) {
-      if (callback.call(thisArg, mas[i], i, mas)) {
-        result.push(mas[i]);
+    for (let i = 0; i < massif.length; i++) {
+      if (callback.call(thisArg, massif[i], i, massif)) {
+        resultMassif.push(massif[i]);
       }
     }
-    return result;
+    return resultMassif;
   }
 
   find(callback, thisArg) {
-    const mas = this;
+    const massif = this;
 
-    for (let i = 0; i < mas.length; i++) {
-      if (callback.call(thisArg, mas[i], i, mas)) {
-        return mas[i];
+    for (let i = 0; i < massif.length; i++) {
+      if (callback.call(thisArg, massif[i], i, massif)) {
+        return massif[i];
       }
     }
     return undefined;
   }
 
   reduce(callback, startValue) {
-    const mas = this;
+    const massif = this;
     let result = null;
 
     if (callback && startValue !== undefined) {
       result = startValue;
 
-      for (let i = 0; i < mas.length; i++) {
-        result = callback(result, mas[i], i, mas);
+      for (let i = 0; i < massif.length; i++) {
+        result = callback(result, massif[i], i, massif);
       }
     }
 
     if (callback && startValue === undefined) {
-      result = mas[0];
+      result = massif[0];
 
-      for (let i = 1; i < mas.length; i++) {
-        result = callback(result, mas[i], i, mas);
+      for (let i = 1; i < massif.length; i++) {
+        result = callback(result, massif[i], i, massif);
       }
     }
 
-    if (mas.length === 0 && startValue === undefined) {
+    if (massif.length === 0 && startValue === undefined) {
       throw new TypeError('Array is empty, InitialValue is specified, callback shouldnot  be called');
     }
 
-    if (mas.length === 1 && startValue === undefined || mas.length === 0 && startValue) {
-      return startValue ? startValue : mas[0];
+    if (massif.length === 1 && startValue === undefined || massif.length === 0 && startValue) {
+      return startValue ? startValue : massif[0];
     }
   }
 
-  static from(arg, callback, thisArg = this) {
+  static from(arg, callback, thisArg) {
     const resultMassive = new MyArray();
 
     if (callback && thisArg) {
@@ -118,67 +118,61 @@ class MyArray {
     }
     return resultMassive;
   }
+
   toString() {
     let str = '';
 
     for (let i = 0; i < this.length; i++) {
-      if (i === (this.length - 1)) {
-        str += `${this[i]}`;
-      } else {
-        str += `${this[i]},`;
-      }
+      i === (this.length - 1) ? str += `${this[i]}` : str += `${this[i]},`;
     }
     return str;
   }
 
   slice(begin, end) {
-    const instanceMasive = this;
-    const newMasive = new MyArray();
+    const newMassif = new MyArray();
     let startValueIndex = begin ? begin : 0;
-    let endValueIndex = end ? end : instanceMasive.length;
+    let endValueIndex = end ? end : this.length;
 
-    startValueIndex = begin < 0 ? instanceMasive.length + begin : startValueIndex;
-    endValueIndex = end < 0 ? instanceMasive.length + end : endValueIndex;
+    startValueIndex = begin < 0 ? this.length + begin : startValueIndex;
+    endValueIndex = end < 0 ? this.length + end : endValueIndex;
 
     for (let i = startValueIndex; i < endValueIndex; i++) {
-      newMasive.push(instanceMasive[i]);
+      newMassif.push(this[i]);
     }
-    return newMasive;
+    return newMassif;
   }
 
   sort(callback) {
-    const mas = this;
-    let max = null;
+    const massif = this;
+    let maxValue = null;
 
     if (callback) {
-      for (let i = 0; i < mas.length - 1; i++) {
-        for (let j = 0; j < mas.length - 1; j++) {
-          if (callback(mas[j], mas[j + 1]) > 0) {
-            max = mas[j];
-            mas[j] = mas[j + 1];
-            mas[j + 1] = max;
+      for (let i = 0; i < massif.length - 1; i++) {
+        for (let j = 0; j < massif.length - 1; j++) {
+          if (callback(massif[j], massif[j + 1]) > 0) {
+            maxValue = massif[j];
+            massif[j] = massif[j + 1];
+            massif[j + 1] = maxValue;
           }
         }
       }
     } else {
-      for (let i = 0; i < mas.length - 1; i++) {
-        for (let j = 0; j < mas.length - i; j++) {
-          if (String(mas[j]) > String(mas[j + 1])) {
-            max = mas[j];
-            mas[j] = mas[j + 1];
-            mas[j + 1] = max;
+      for (let i = 0; i < massif.length - 1; i++) {
+        for (let j = 0; j < massif.length - 1; j++) {
+          if (String(massif[j]) > String(massif[j + 1])) {
+            maxValue = massif[j];
+            massif[j] = massif[j + 1];
+            massif[j + 1] = maxValue;
           }
         }
       }
     }
-    return mas;
+    return massif;
   }
 
   * [Symbol.iterator]() {
-    const mas = this;
-
-    for (let i = 0; i < mas.length; i++) {
-      yield mas[i];
+    for (let i = 0; i < this.length; i++) {
+      yield this[i];
     }
   }
 }
