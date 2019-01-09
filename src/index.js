@@ -19,9 +19,11 @@ class MyArray {
   }
 
   pop() {
+    const indexLast = this.length - 1;
+
     if (this.length > 0) {
-      const lastElement = this[this.length - 1];
-      delete this[this.length - 1];
+      const lastElement = this[indexLast];
+      delete this[indexLast];
       this.length -= 1;
       return lastElement;
     }
@@ -37,7 +39,8 @@ class MyArray {
     const resultArray = new MyArray();
 
     for (let i = 0; i < this.length; i++) {
-      resultArray.push(callback.call(thisArg, this[i], i, this));
+      resultArray[i] = callback.call(thisArg, this[i], i, this);
+      resultArray.length += 1;
     }
     return resultArray;
   }
@@ -47,7 +50,8 @@ class MyArray {
 
     for (let i = 0; i < this.length; i++) {
       if (callback.call(thisArg, this[i], i, this)) {
-        resultArray.push(this[i]);
+        resultArray[resultArray.length] = this[i];
+        resultArray.length += 1;
       }
     }
     return resultArray;
@@ -61,15 +65,15 @@ class MyArray {
     }
   }
 
-  reduce(callback, startValue) {
-    let result = startValue === undefined ? this[0] : startValue;
+  reduce(callback, initialValue) {
+    let result = initialValue === undefined ? this[0] : initialValue;
 
-    if (startValue !== undefined) {
-      this[0] = callback(result, this[0], 0, this);
+    if (this.length === 0 && initialValue === undefined) {
+      throw new TypeError('Array is empty, InitialValue is specified, callback shouldnot  be called');
     }
 
-    if (this.length === 0 && startValue === undefined) {
-      throw new TypeError('Array is empty, InitialValue is specified, callback shouldnot  be called');
+    if (initialValue !== undefined) {
+      this[0] = callback(result, this[0], 0, this);
     }
 
     for (let i = 1; i < this.length; i++) {
@@ -81,13 +85,15 @@ class MyArray {
   static from(arg, callback, thisArg) {
     const resultArray = new MyArray();
 
-    if (callback && thisArg || callback && !thisArg) {
+    if (callback) {
       for (let i = 0; i < arg.length; i++) {
-        resultArray.push(callback.call(thisArg, arg[i], i, arg));
+        resultArray[i] = callback.call(thisArg, arg[i], i, arg);
+        resultArray.length += 1;
       }
     } else {
       for (let i = 0; i < arg.length; i++) {
-        resultArray.push(arg[i]);
+        resultArray[resultArray.length] = arg[i];
+        resultArray.length += 1;
       }
     }
     return resultArray;
@@ -105,40 +111,40 @@ class MyArray {
   }
 
   slice(begin, end) {
-    const newMassif = new MyArray();
-    let startValueIndex = begin ? begin : 0;
-    let endValueIndex = end ? end : this.length;
+    const newArray = new MyArray();
 
-    startValueIndex = begin < 0 ? this.length + begin : startValueIndex;
-    endValueIndex = end < 0 ? this.length + end : endValueIndex;
+    const startValueIndex = begin < 0 ? this.length + begin : begin || 0;
+    const endValueIndex = end < 0 ? this.length + end : end || this.length;
 
     for (let i = startValueIndex; i < endValueIndex; i++) {
-      newMassif.push(this[i]);
+      newArray[newArray.length] = this[i];
+      newArray.length += 1;
     }
-    return newMassif;
+    return newArray;
   }
 
   sort(callback) {
     let maxValue = null;
+    let cnFunc = callback;
 
-    if (callback) {
-      for (let i = 0; i < this.length - 1; i++) {
-        for (let j = 0; j < this.length - 1; j++) {
-          if (callback(this[j], this[j + 1]) > 0) {
-            maxValue = this[j];
-            this[j] = this[j + 1];
-            this[j + 1] = maxValue;
-          }
+    if (!cnFunc) {
+      cnFunc = (a, b) => {
+        if (`${a}` > `${b}`) {
+          return 1;
+        } else if (`${a}` < `${b}`) {
+          return -1;
+        } else {
+          return 0;
         }
-      }
-    } else {
-      for (let i = 0; i < this.length - 1; i++) {
-        for (let j = 0; j < this.length - 1; j++) {
-          if (String(this[j]) > String(this[j + 1])) {
-            maxValue = this[j];
-            this[j] = this[j + 1];
-            this[j + 1] = maxValue;
-          }
+      };
+    }
+
+    for (let i = 0; i < this.length - 1; i++) {
+      for (let j = 0; j < this.length - 1; j++) {
+        if (cnFunc(this[j], this[j + 1]) > 0) {
+          maxValue = this[j];
+          this[j] = this[j + 1];
+          this[j + 1] = maxValue;
         }
       }
     }
