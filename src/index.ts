@@ -86,22 +86,22 @@ class MyArray <T> implements IMyArray<T>{
         return result;
       }
   
-    static from(arg, callback, thisArg) {
-      const resultArray = new MyArray();
-  
-      if (callback) {
-        for (let i = 0; i < arg.length; i++) {
-          resultArray[i] = callback.call(thisArg, arg[i], i, arg);
-          resultArray.length += 1;
+      static from<T>(arg:any, callback: (value: T, index: number, array: MyArray<T>) => void, thisArg?:T): MyArray<T> {
+        const resultArray = new MyArray<T>();
+    
+        if (callback) {
+          for (let i = 0; i < arg.length; i++) {
+            resultArray[i] = callback.call(thisArg, arg[i], i, arg);
+            resultArray.length += 1;
+          }
+        } else {
+          for (let i = 0; i < arg.length; i++) {
+            resultArray[resultArray.length] = arg[i];
+            resultArray.length += 1;
+          }
         }
-      } else {
-        for (let i = 0; i < arg.length; i++) {
-          resultArray[resultArray.length] = arg[i];
-          resultArray.length += 1;
-        }
+        return resultArray;
       }
-      return resultArray;
-    }
   
     toString() {
       let str = '';
