@@ -1,15 +1,19 @@
-class MyArray {
-    constructor(...args) {
+import { IMyArray } from './interfaceMyArray';
+
+class MyArray <T> implements IMyArray<T>{
+    [key: number]: T;
+    length: number;
+    constructor(...args: T[] | number[]) {
       if (args.length === 1 && typeof args[0] === 'number') {
-        this.length = args[0];
+        this.length = <number>args[0] ;
       } else {
         this.length = args.length;
-  
         for (let i = 0; i < args.length; i++) {
-          this[i] = args[i];
+          this[i] = <T>args[i];
         }
       }
     }
+
     push(...args) {
       for (let i = 0; i < args.length; i++) {
         this[this.length] = args[i];
