@@ -127,7 +127,7 @@ class MyArray <T> implements IMyArray<T>{
         return newArray;
       }
   
-    sort(callback) {
+    sort(callback ?: (a: T, b: T) => number): this {
       let maxValue = null;
       let cnFunc = callback;
   
