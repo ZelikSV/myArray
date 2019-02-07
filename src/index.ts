@@ -14,13 +14,13 @@ class MyArray <T> implements IMyArray<T>{
       }
     }
 
-    push(...args) {
-      for (let i = 0; i < args.length; i++) {
-        this[this.length] = args[i];
-        this.length += 1;
+    push(...args: T[]):number{
+        for (let i = 0; i < args.length; i++) {
+          this[this.length] = args[i];
+          this.length += 1;
+        }
+        return this.length;
       }
-      return this.length;
-    }
   
     pop(): T | undefined {
         const indexLast = this.length - 1;
