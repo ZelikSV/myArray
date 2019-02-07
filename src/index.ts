@@ -33,11 +33,11 @@ class MyArray <T> implements IMyArray<T>{
         }
       }
   
-    forEach(callback, thisArg) {
-      for (let i = 0; i < this.length; i++) {
-        callback.call(thisArg, this[i], i, this);
+      forEach(callback: (value: T, index: number, array: MyArray<T>) => void, thisArg?:T):void {
+        for (let i = 0; i < this.length; i++) {
+          callback.call(thisArg, this[i], i, this);
+        }
       }
-    }
   
     map(callback, thisArg) {
       const resultArray = new MyArray();
