@@ -69,22 +69,22 @@ class MyArray <T> implements IMyArray<T>{
         }
       }
   
-    reduce(callback, initialValue) {
-      let result = initialValue === undefined ? this[0] : initialValue;
-  
-      if (this.length === 0 && initialValue === undefined) {
-        throw new TypeError('Array is empty, InitialValue is specified, callback shouldnot  be called');
+      reduce(callback: (accumulator: T, value: T, index: number, array: MyArray<T>) => T, initialValue?: T): T{
+        let result = initialValue === undefined ? this[0] : initialValue;
+    
+        if (this.length === 0 && initialValue === undefined) {
+          throw new TypeError('Array is empty, InitialValue is specified, callback should not  be called');
+        }
+    
+        if (initialValue !== undefined) {
+          this[0] = callback(result, this[0], 0, this);
+        }
+    
+        for (let i = 1; i < this.length; i++) {
+          result = callback(result, this[i], i, this);
+        }
+        return result;
       }
-  
-      if (initialValue !== undefined) {
-        this[0] = callback(result, this[0], 0, this);
-      }
-  
-      for (let i = 1; i < this.length; i++) {
-        result = callback(result, this[i], i, this);
-      }
-      return result;
-    }
   
     static from(arg, callback, thisArg) {
       const resultArray = new MyArray();
