@@ -49,17 +49,17 @@ class MyArray <T> implements IMyArray<T>{
       return resultArray;
     }
   
-    filter(callback, thisArg) {
-      const resultArray = new MyArray();
-  
-      for (let i = 0; i < this.length; i++) {
-        if (callback.call(thisArg, this[i], i, this)) {
-          resultArray[resultArray.length] = this[i];
-          resultArray.length += 1;
+    filter(callback: (value: T, index: number, array: MyArray<T>) => boolean, thisArg?:any):MyArray<T> {
+        const resultArray = new MyArray<T>();
+    
+        for (let i = 0; i < this.length; i++) {
+          if (callback.call(thisArg, this[i], i, this)) {
+            resultArray[resultArray.length] = this[i];
+            resultArray.length += 1;
+          }
         }
+        return resultArray;
       }
-      return resultArray;
-    }
   
     find(callback, thisArg) {
       for (let i = 0; i < this.length; i++) {
