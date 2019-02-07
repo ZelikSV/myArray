@@ -61,13 +61,13 @@ class MyArray <T> implements IMyArray<T>{
         return resultArray;
       }
   
-    find(callback, thisArg) {
-      for (let i = 0; i < this.length; i++) {
-        if (callback.call(thisArg, this[i], i, this)) {
-          return this[i];
+      find(callback: (value: T, index: number, array: MyArray<T>) => T, thisArg?:any):T | undefined{
+        for (let i = 0; i < this.length; i++) {
+          if (callback.call(thisArg, this[i], i, this)) {
+            return this[i];
+          }
         }
       }
-    }
   
     reduce(callback, initialValue) {
       let result = initialValue === undefined ? this[0] : initialValue;
