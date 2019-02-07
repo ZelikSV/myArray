@@ -39,15 +39,15 @@ class MyArray <T> implements IMyArray<T>{
         }
       }
   
-    map(callback, thisArg) {
-      const resultArray = new MyArray();
-  
-      for (let i = 0; i < this.length; i++) {
-        resultArray[i] = callback.call(thisArg, this[i], i, this);
-        resultArray.length += 1;
+      map<U>(callback: (value: T, index: number, array: MyArray<T>) => U, thisArg?:any):MyArray<U> {
+        const resultArray = new MyArray<U>();
+    
+        for (let i = 0; i < this.length; i++) {
+          resultArray[i] = callback.call(thisArg, this[i], i, this);
+          resultArray.length += 1;
+        }
+        return resultArray;
       }
-      return resultArray;
-    }
   
     filter(callback, thisArg) {
       const resultArray = new MyArray();
