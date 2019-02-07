@@ -22,16 +22,16 @@ class MyArray <T> implements IMyArray<T>{
       return this.length;
     }
   
-    pop() {
-      const indexLast = this.length - 1;
-  
-      if (this.length > 0) {
-        const lastElement = this[indexLast];
-        delete this[indexLast];
-        this.length -= 1;
-        return lastElement;
+    pop(): T | undefined {
+        const indexLast = this.length - 1;
+    
+        if (this.length > 0) {
+          const lastElement = this[indexLast];
+          delete this[indexLast];
+          this.length -= 1;
+          return lastElement;
+        }
       }
-    }
   
     forEach(callback, thisArg) {
       for (let i = 0; i < this.length; i++) {
