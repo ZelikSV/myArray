@@ -114,18 +114,18 @@ class MyArray <T> implements IMyArray<T>{
       return this.length === 0 ? '' : str;
     }
   
-    slice(begin, end) {
-      const newArray = new MyArray();
-  
-      const startValueIndex = begin < 0 ? this.length + begin : begin || 0;
-      const endValueIndex = end < 0 ? this.length + end : end || this.length;
-  
-      for (let i = startValueIndex; i < endValueIndex; i++) {
-        newArray[newArray.length] = this[i];
-        newArray.length += 1;
+    slice(begin?:number, end?:number): MyArray<T>{
+        const newArray = new MyArray<T>();
+    
+        const startValueIndex = begin < 0 ? this.length + begin : begin || 0;
+        const endValueIndex = end < 0 ? this.length + end : end || this.length;
+    
+        for (let i = startValueIndex; i < endValueIndex; i++) {
+          newArray[newArray.length] = this[i];
+          newArray.length += 1;
+        }
+        return newArray;
       }
-      return newArray;
-    }
   
     sort(callback) {
       let maxValue = null;
