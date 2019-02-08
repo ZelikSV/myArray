@@ -39,7 +39,7 @@ class MyArray <T> implements IMyArray<T>{
         }
       }
   
-      map<U>(callback: (value: T, index: number, array: MyArray<T>) => U, thisArg?:any):MyArray<U> {
+      map<U>(callback: (value: T, index: number, array: MyArray<T>) => void, thisArg?:any[]):MyArray<U> {
         const resultArray = new MyArray<U>();
     
         for (let i = 0; i < this.length; i++) {
