@@ -103,7 +103,7 @@ class MyArray <T> implements IMyArray<T>{
         return resultArray;
       }
   
-    toString() {
+    toString():string {
       let str = '';
   
       for (let i = 0; i < this.length - 1; i++) {
