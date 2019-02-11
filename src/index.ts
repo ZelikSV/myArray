@@ -71,7 +71,7 @@ class MyArray<T> implements IMyArray<T> {
   }
 
   find(
-    callback: (value: T, index: number, array: MyArray<T>) => T,
+    callback: (value: T, index: number, array: MyArray<T>) => boolean,
     thisArg?: any
   ): T | undefined {
     for (let i = 0; i < this.length; i++) {
